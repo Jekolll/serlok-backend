@@ -1,9 +1,8 @@
 # services/auth_service.py
-import os, random
+import os, random, bcrypt
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt, JWTError
-from passlib.context import CryptContext
 from sqlmodel import Session, select
 from models.db import User
 
@@ -11,13 +10,11 @@ SECRET = os.getenv("SECRET_KEY", "serlok_secret_2025")
 ALG    = "HS256"
 TTL    = 60 * 24 * 30
 
-pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 def hash_pw(plain: str) -> str:
-    return pwd_ctx.hash(plain[:72])
+    return bcrypt.hashpw(plain[:72].encode(), bcrypt.gensalt()).decode()
 
 def verify_pw(plain: str, hashed: str) -> bool:
-    return pwd_ctx.verify(plain[:72], hashed)
+    return bcrypt.checkpw(plain[:72].encode(), hashed.encode())
 
 def make_token(user_id: int) -> str:
     exp = datetime.utcnow() + timedelta(minutes=TTL)
