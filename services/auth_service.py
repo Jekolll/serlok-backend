@@ -17,7 +17,7 @@ def hash_pw(plain: str) -> str:
     return pwd_ctx.hash(plain[:72])
 
 def verify_pw(plain: str, hashed: str) -> bool:
-    return pwd_ctx.verify(plain, hashed)
+    return pwd_ctx.verify(plain[:72], hashed)
 
 def make_token(user_id: int) -> str:
     exp = datetime.utcnow() + timedelta(minutes=TTL)
