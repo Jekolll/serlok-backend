@@ -16,7 +16,10 @@ app = FastAPI(title="Serlok API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://serlok-frontend.vercel.app"],
+    allow_origins=["serlok-frontend.vercel.app
+serlok-frontend-git-main-syafiqme2706-7272s-projects.vercel.app
+serlok-frontend-i3assxni7-syafiqme2706-7272s-projects.vercel.app"
+],
     allow_methods=["*"],
     allow_headers=["*"],
 )
