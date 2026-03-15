@@ -14,7 +14,7 @@ TTL     = 60 * 24 * 30  # 30 hari
 pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def hash_pw(plain: str) -> str:
-    return pwd_ctx.hash(plain)
+    return pwd_ctx.hash(plain[:72])
 
 def verify_pw(plain: str, hashed: str) -> bool:
     return pwd_ctx.verify(plain, hashed)
